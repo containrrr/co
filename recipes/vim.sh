@@ -3,13 +3,16 @@
 # avoid confusing behavior.
 #
 
-fullName=$1
-fileName=$(basename $1)
-
-if [[ ! -f $1 ]]
+if [[ ! -f $2 ]]
 then
-  touch $1
+  touch $2
 fi
+
+fullName=$(realpath $2)
+fileName=$(basename $2)
+args=${@:3}
+
+echo "Mounting \"$fullName\" in a docker container and opening it in nvim"
 
 docker run \
     -it \
@@ -18,4 +21,4 @@ docker run \
     --rm lambdalisue/neovim-themis \
     nvim \
     /mount/$fileName \
-    ${@:2}
+    $args
