@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+echo "hello world\n"
+
+key="$1"
+
+case $key in
+  vim)
+    sh ./recipes/vim.sh $(realpath $2 || $(pwd)/$(basename $2) ) ${@:3}
+  ;;
+esac
