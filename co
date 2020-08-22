@@ -1,11 +1,16 @@
 #!/usr/bin/env sh
 
-echo "hello world\n"
-
 key="$1"
 
 case $key in
   vim)
     sh ./recipes/vim.sh $(realpath $2 || $(pwd)/$(basename $2) ) ${@:3}
   ;;
+  k6)
+    if [ $# -lt 3 ]; then
+      echo "Usage: co k6 [command] [file] [...args]"
+      exit 1
+    fi
+    bash ./recipes/k6.sh $2 $(realpath $3 || $(pwd)/$(basename $3)) ${@:4}
+
 esac
